@@ -1,9 +1,11 @@
-import express from 'express';
-import cors from 'cors'
+import "express-async-errors";
+import express, { NextFunction, Request, Response } from 'express';
+import cors from 'cors';
 
-import { PrismaClient } from '@prisma/client';
+import { client } from './prisma/client';
 import { convertHourToMinutes } from './utils/convert-hour-string-to-minute';
 import { convertMinuteToHours } from './utils/convert-minutes-to-hours';
+import { router } from './useCases/routes';
 
 const app = express();
 
@@ -11,12 +13,12 @@ app.use(express.json());
 
 app.use(cors())
 
-const prisma = new PrismaClient({
-  log: ['query']
-});
+app.use(router);
+
+
 
 app.get('/games', async (req, res, next) => {
-  const games = await prisma.game.findMany({
+  const games = await client.game.findMany({
     include: {
       _count: {
         select: {
@@ -36,7 +38,7 @@ app.get('/ads', (req, res, next) => {
 app.get('/games/:id/ads', async (req, res, next) => {
   const gameId = req.params.id
 
-  const ads = await prisma.ad.findMany({
+  const ads = await client.ad.findMany({
     select: {
       id: true,
       name: true,
@@ -69,7 +71,7 @@ app.post('/games/:id/ads', async (req, res, next) => {
   const gameId = req.params.id;
   const body = req.body;
 
-  const ad = await prisma.ad.create({
+  const ad = await client.ad.create({
     data: {
       gameId: gameId,
       name: body.name,
@@ -88,7 +90,7 @@ app.post('/games/:id/ads', async (req, res, next) => {
 app.get('/ads/:id/discord', async (req, res, next) => {
   const adId = req.params.id
 
-  const discord = await prisma.ad.findUniqueOrThrow({
+  const discord = await client.ad.findUniqueOrThrow({
     where: {
       id: adId
     },
@@ -101,6 +103,14 @@ app.get('/ads/:id/discord', async (req, res, next) => {
     discord: discord.discord
   })
 })
+
+app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+  return res.json({
+    status: "Error",
+    message: error.message
+  })
+})
+
 
 
 app.listen(4444) 

@@ -31,3 +31,12 @@ model Ad {
 
   game Game @relation(fields: [gameId], references: [id])
 }
+
+model User {
+  id       String @id @default(uuid())
+  name     String
+  username String @unique
+  password String
+
+  @@map("user")
+}
