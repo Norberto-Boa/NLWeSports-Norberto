@@ -2,107 +2,19 @@ import "express-async-errors";
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 
-import { client } from './prisma/client';
-import { convertHourToMinutes } from './utils/convert-hour-string-to-minute';
-import { convertMinuteToHours } from './utils/convert-minutes-to-hours';
 import { router } from './useCases/routes';
+import cookieParser from 'cookie-parser';
+
 
 const app = express();
 
 app.use(express.json());
 
-app.use(cors())
+app.use(cors());
+
+app.use(cookieParser());
 
 app.use(router);
-
-
-
-app.get('/games', async (req, res, next) => {
-  const games = await client.game.findMany({
-    include: {
-      _count: {
-        select: {
-          ads: true,
-        }
-      }
-    }
-  });
-
-  return res.status(200).json(games);
-});
-
-app.get('/ads', (req, res, next) => {
-  return res.status(200).json([]);
-});
-
-app.get('/games/:id/ads', async (req, res, next) => {
-  const gameId = req.params.id
-
-  const ads = await client.ad.findMany({
-    select: {
-      id: true,
-      name: true,
-      weekDays: true,
-      useVoiceChannel: true,
-      yearsPlaying: true,
-      hourStart: true,
-      hourEnd: true,
-
-    },
-    where: {
-      gameId: gameId
-    },
-    orderBy: {
-      createdAt: 'desc'
-    }
-  })
-
-
-  return res.status(200).json(ads.map(ad => {
-    return {
-      ...ad,
-      weekDays: ad.weekDays.split(','),
-      hourStart: convertMinuteToHours(ad.hourStart),
-      hourEnd: convertMinuteToHours(ad.hourEnd),
-    }
-  }));
-});
-app.post('/games/:id/ads', async (req, res, next) => {
-  const gameId = req.params.id;
-  const body = req.body;
-
-  const ad = await client.ad.create({
-    data: {
-      gameId: gameId,
-      name: body.name,
-      yearsPlaying: body.yearsPlaying,
-      discord: body.discord,
-      weekDays: body.weekDays.join(','),
-      hourStart: convertHourToMinutes(body.hourStart),
-      hourEnd: convertHourToMinutes(body.hourEnd),
-      useVoiceChannel: body.useVoiceChannel,  
-    }
-  })
-
-  return res.status(200).json(ad);
-});
-
-app.get('/ads/:id/discord', async (req, res, next) => {
-  const adId = req.params.id
-
-  const discord = await client.ad.findUniqueOrThrow({
-    where: {
-      id: adId
-    },
-    select: {
-      discord: true
-    }
-  })
-
-  return res.json({
-    discord: discord.discord
-  })
-})
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   return res.json({

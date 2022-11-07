@@ -4,7 +4,7 @@ import { client } from "../../prisma/client";
 
 interface IRequest {
   username: string,
-  password: string
+  password: string,
 }
 
 class authenticateUserUseCase {
@@ -28,10 +28,12 @@ class authenticateUserUseCase {
       throw new Error("Credetianls are wrong");
     }
 
+    const name = userAlreadyExists.name
+    
     //generate a token for the user
-    const token = sign({ username }, "Mena", {
+    const token = sign({ username, name }, "Mena", {
       subject: userAlreadyExists.id,
-      expiresIn: "120s"
+      expiresIn: 31556926
     })
 
     return { token };

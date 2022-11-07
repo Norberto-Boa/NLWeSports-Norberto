@@ -6,6 +6,7 @@ import { Check, GameController } from 'phosphor-react';
 import { Input } from './Form/Input';
 import { useState, useEffect, FormEvent } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 interface GameProps {
   id: string,
@@ -16,7 +17,7 @@ export const CreateAdModal = () => {
   const [games, setGames] = useState<GameProps[]>([]);
   const [weekdays, setWeekdays] = useState<string[]>([])
   const [useVoiceChannel, setUseVoiceChannel] = useState(false)
-
+  const token: string = Cookies.get('Token') ?? "";
 
   useEffect(() => {
     axios('http://localhost:4444/games')
@@ -39,7 +40,6 @@ export const CreateAdModal = () => {
     try {
       
       await axios.post(`http://localhost:4444/games/${data.game}/ads`, {
-        
         name: data.name,
         yearsPlaying: Number(data.yearsPlaying),
         discord: data.discord,
@@ -47,7 +47,12 @@ export const CreateAdModal = () => {
         hourStart: data.hourStart,
         hourEnd: data.hourEnd,
         useVoiceChannel: useVoiceChannel,
-      })
+      },
+        {
+          headers: {
+            'Authorization' :  `${token}`
+        }
+      });
 
       alert('Anuncio criado')
 
