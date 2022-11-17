@@ -7,6 +7,12 @@ class GetSingleGameController {
   async handle(req: Request, res: Response) {
     const gameId = req.params.id;
 
+    const game = await client.game.findFirst({
+      where: {
+        id: gameId
+      }
+    })
+
     const ads = await client.ad.findMany({
       select: {
         id: true,
@@ -16,6 +22,7 @@ class GetSingleGameController {
         yearsPlaying: true,
         hourStart: true,
         hourEnd: true,
+        discord: true
       },
       where: {
         gameId: gameId
@@ -25,14 +32,16 @@ class GetSingleGameController {
       }
     })
 
-    return res.status(200).json(ads.map(ad => {
-      return {
-        ...ad,
-        weekDays: ad.weekDays.split(','),
-        hourStart: convertMinuteToHours(ad.hourStart),
-        hourEnd: convertMinuteToHours(ad.hourEnd)
-      }
-    }));
+    return (
+      res.status(200).json(ads.map(ad => {
+        return {
+          ...ad,
+          weekDays: ad.weekDays.split(','),
+          hourStart: convertMinuteToHours(ad.hourStart),
+          hourEnd: convertMinuteToHours(ad.hourEnd)
+        }
+      }))
+    );
   }
 }
 

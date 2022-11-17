@@ -4,9 +4,12 @@ import { FormEvent, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+import { useForm } from 'react-hook-form';
+
 
 const Form = () => {
   const [loginError, setLoginError] = useState<string>("");
+  const {register, handleSubmit } = useForm(); 
 
   const win: Window = window;
 
@@ -31,7 +34,7 @@ const Form = () => {
       }).then( (res) => {
         console.log(res)
         
-        Cookies.set('Token', 'Bearer ' + res.data.token, { expires: 1, path: '/home'});
+        Cookies.set('Token', 'Bearer ' + res.data.token, { expires: 24 * 60 * 60 * 1000, path: '/'});
         win.location = '/home'
       })
 
@@ -65,7 +68,7 @@ const Form = () => {
           className="mb-1"
         >
           <label htmlFor="pwd" className="font-bold">Passwrod: </label>
-          <Input type='text'id="pwd" name="pwd" placeholder="*****"/>
+          <Input type='password'id="pwd" name="pwd" placeholder="*****"/>
         </div>
 
         <span >

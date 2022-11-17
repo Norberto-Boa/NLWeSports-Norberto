@@ -83,6 +83,7 @@ const Home = () => {
         {games.map((item) => {
           return (
             <GameBanner
+              id={item.id}
               key={item.id}
               bannerUrl={item.bannerUrl}
               name={item.title}

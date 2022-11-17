@@ -1,4 +1,5 @@
 interface GameBannerProps {
+  id: string;
   bannerUrl: string;
   name: string;
   adsCount: number;
@@ -6,7 +7,7 @@ interface GameBannerProps {
 
 export const GameBanner = (props: GameBannerProps) => {
   return (
-    <a href="#" className='relative rounded-lg overflow-hidden'>
+    <a href={`/game/${props.id}`} className='relative rounded-lg overflow-hidden'>
       <img src={props.bannerUrl} alt="" />
 
       <div className='w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0'>

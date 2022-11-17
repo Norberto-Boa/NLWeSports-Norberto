@@ -7,6 +7,7 @@ import { GetGamesController } from "./getAllGames/getAllGamesController";
 import { GetSingleGameController } from "./getSingleGame/getSingleGameController";
 import { CreateAdController } from "./CreateAd/CreateAdController";
 import { getDiscordController } from "./getDiscord/getDiscordController";
+import { GetSingleGameDataController } from "./getSingleData/getSingleGameDataController";
 
 const corsOptions = {
   origin: 'http://localhost:3000',
@@ -20,6 +21,7 @@ const getGames = new GetGamesController();
 const getSingleGame = new GetSingleGameController();
 const createAd = new CreateAdController();
 const getDiscord = new getDiscordController();
+const getSingleGameData = new GetSingleGameDataController();
 
 router.post('/register', createUser.handle);
 
@@ -33,13 +35,6 @@ router.post('/games/:id/ads', ensureAuthenticated, createAd.handle);
 
 router.get('/ads/:id/discord', ensureAuthenticated, getDiscord.handle);
 
-router.get('/courses', ensureAuthenticated, (req, res) => {
-  return res.json([
-    { id: 1, name: "Bitches" },
-    { id: 1, name: "Bitches" },
-    { id: 1, name: "Bitches" },
-    { id: 1, name: "Bitches" },
-  ])
-})
+router.get('/game/:id', ensureAuthenticated, getSingleGameData.handle)
 
 export { router };
