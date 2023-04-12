@@ -32,10 +32,12 @@ const Form = () => {
         username: data.username,
         password: data.pwd
       }).then( (res) => {
-        console.log(res)
-        
-        Cookies.set('Token', 'Bearer ' + res.data.token, { expires: 24 * 60 * 60 * 1000, path: '/'});
-        win.location = '/home'
+        if (res.data.status === 'Error') {
+          return
+        } else {
+          Cookies.set('Token', 'Bearer ' + res.data.token, { expires: 24 * 60 * 60 * 1000, path: '/'});
+          win.location = '/home'
+        }
       })
 
 

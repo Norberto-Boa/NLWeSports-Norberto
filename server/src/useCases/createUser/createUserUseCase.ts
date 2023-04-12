@@ -13,14 +13,16 @@ class CreateUserUseCase{
 
   async execute({name, username, password } : IUserRequest) {
     //Check if User already exists
+
     const userAlreadyExists = await client.user.findFirst({
       where: {
-        username
+        username: username,
       }
     })
 
     if (userAlreadyExists) {
-      throw Error("User already exists!");
+      const error = Error("User already exists!")
+      throw error;
     }
 
     // Cadastra o usuario

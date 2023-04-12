@@ -27,11 +27,18 @@ interface Ad{
 
 
 const Game = () => {
-  
+  const [currentSlide, setCurrentSlide] =useState(0)
   const [sliderRef, instanceRef] = useKeenSlider({
-    slideChanged() {
-      console.log('slide Changed')
+    initial: 0,
+    slideChanged(slider) {
+      setCurrentSlide(slider.track.details.rel)
+    },
+    loop: true,
+    range: {
+      max: 2,
+      min: 1
     }
+    
   })
 
   const [game, setGame] = useState<GameProps>()
