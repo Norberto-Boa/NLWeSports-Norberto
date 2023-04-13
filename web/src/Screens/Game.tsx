@@ -81,7 +81,7 @@ const Game = () => {
       </div>
 
       <h1 className='text-4xl text-white font-black text-center my-8'>
-        Connecte-se e comece a jogar
+        Connecte-se e comece a jogar bem
       </h1>
 
       <div ref={sliderRef} className='keen-slider'>
