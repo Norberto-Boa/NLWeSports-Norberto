@@ -1,1 +1,1 @@
-export const baseUrl = "https://esports-server.herokuapp.com";
+export const baseUrl = process.env.BASE_URL

@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Warning } from 'phosphor-react';
 import axios from 'axios';
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
 import { baseUrl } from "../utils/baseUrl";
 
 interface ErrorMessage{
