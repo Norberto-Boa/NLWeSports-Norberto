@@ -12,6 +12,7 @@ import { CreateAdModal } from '../components/CreateAdModal';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import jwt from 'jwt-decode';
+import { baseUrl } from "../utils/baseUrl";
 
 interface GameProps {
   id: string,
@@ -33,11 +34,10 @@ interface tokenDecoded{
 const Home = () => {
   const [games, setGames] = useState<GameProps[]>([]);
   const token: string = Cookies.get('Token', ) ?? ""; 
-  const [user, setUser] = useState<string>('');
   const [decoded, setDecoded] = useState<tokenDecoded>();
 
   useEffect(() => {
-    axios.get('http://localhost:4444/games')
+    axios.get(`${baseUrl}/games`)
       .then(res => {
         setGames(res.data)
         setDecoded(jwt(token));
@@ -50,18 +50,14 @@ const Home = () => {
     const tokenTime = decoded?.exp === undefined ?  0 : decoded?.exp * 1000;
 
     if (tokenTime === undefined) {
-      console.log(tokenTime);
       return false
     } else if (tokenTime != undefined) {
       if (tokenTime * 1000 > Date.now()) {
-        console.log(tokenTime);
         return true
       } else {
         return false
       }
     }
-
-
   }
 
   const isLogged = checkJWT();
@@ -76,7 +72,7 @@ const Home = () => {
       </h1>
 
       <h1 className='text-6xl text-white font-black mt-20'>
-        Seu <span className='bg-nlw-gradient bg-clip-text text-transparent'>duo</span> está aqui
+        Seu <span className='bg-gradient-to-r from-purple-500 via-blue-500 to-yellow-300 bg-clip-text text-transparent'>duo</span> está aqui
       </h1>
 
       <div className='grid grid-cols-6 gap-6 mt-16'>

@@ -1,0 +1,1 @@
+export const baseUrl = "https://esports-server.herokuapp.com";

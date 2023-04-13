@@ -6,6 +6,7 @@ import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react.es';
 import { AdCard } from '../components/AdCard';
 import Cookies from 'js-cookie';
+import { baseUrl } from "../utils/baseUrl";
 
 
 interface GameProps{
@@ -49,7 +50,7 @@ const Game = () => {
   console.log(token)
 
   useEffect(() => {
-    axios.get(`http://localhost:4444/games/${id}/ads`, {
+    axios.get(`https://esports-server.herokuapp.com/games/${id}/ads`, {
       headers: {
         'Authorization' :  `${token}`
       }
@@ -58,7 +59,7 @@ const Game = () => {
         setAds(res.data)
       })
     
-    axios.get(`http://localhost:4444/game/${id}`, {
+    axios.get(`https://esports-server.herokuapp.com/game/${id}`, {
       headers: {
         'Authorization' :  `${token}`
       }

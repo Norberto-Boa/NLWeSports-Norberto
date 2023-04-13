@@ -18,11 +18,11 @@ app.use(router);
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   return res.json({
-    status: "Error",
+    status: "Errore",
     message: error.message
   })
 })
 
 
 
-app.listen(4444) 
+app.listen(process.env.PORT || 4444) 

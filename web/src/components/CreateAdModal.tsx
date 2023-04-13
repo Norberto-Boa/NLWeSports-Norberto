@@ -8,6 +8,8 @@ import { useState, useEffect, FormEvent } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+import { baseUrl } from "../utils/baseUrl";
+
 interface GameProps {
   id: string,
   title: string,
@@ -20,7 +22,7 @@ export const CreateAdModal = () => {
   const token: string = Cookies.get('Token') ?? "";
 
   useEffect(() => {
-    axios('http://localhost:4444/games')
+    axios(`${baseUrl}/games`)
       .then(res => {
         setGames(res.data)
       });
@@ -39,7 +41,7 @@ export const CreateAdModal = () => {
 
     try {
       
-      await axios.post(`http://localhost:4444/games/${data.game}/ads`, {
+      await axios.post(`${baseUrl}/games/${data.game}/ads`, {
         name: data.name,
         yearsPlaying: Number(data.yearsPlaying),
         discord: data.discord,

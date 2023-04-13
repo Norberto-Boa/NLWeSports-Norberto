@@ -3,19 +3,18 @@ import {UserCircle } from "phosphor-react";
 import { FormEvent, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { baseUrl } from "../../utils/baseUrl";
 
 import { useForm } from 'react-hook-form';
 
 
 const Form = () => {
   const [loginError, setLoginError] = useState<string>("");
-  const {register, handleSubmit } = useForm(); 
 
   const win: Window = window;
 
   async function handleLogin(e: FormEvent) {
     e.preventDefault();
-
 
     const formData = new FormData(e.target as HTMLFormElement);
     const data = Object.fromEntries(formData)
@@ -28,7 +27,7 @@ const Form = () => {
     }
 
     try {
-      await axios.post(`http://localhost:4444/auth`, {
+      await axios.post(`${baseUrl}/auth`, {
         username: data.username,
         password: data.pwd
       }).then( (res) => {

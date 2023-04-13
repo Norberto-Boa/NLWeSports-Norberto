@@ -1,27 +1,127 @@
-![NLW eSports logo](./mobile/src/assets/Logo-nlw-esports.png)
+<p align="center">
+  <a href="" rel="noopener">
+ <img width=200px height=200px src="./mobile/assets/icon.png" alt="Project logo"></a>
+</p>
 
-# NLW#eSports Version
-This is an Application for gamers guided by the Rocketseat educators.
+<h3 align="center">eSports connecter</h3>
 
-## Description
-It's an application which is still being built and will allow users to connect themselves
-with another gamers of the same game, by posting ads in which will be announced the
-period, weekdays and also the discordUser.
+<div align="center">
 
-It was developed in TypeScript. Using React in the web front-end and React-Native for
-mobile version. For the back-end it was used Node.
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
-The Database used in this project was SqlLite and with PrismaORM to integrate it properly
-with JS.
+</div>
 
-Please Enjoy.
+---
 
-### Authors
-:man_technologist: Norberto Boa
+<p align="center"> This is an application that connect gamers based on ads that they post.
+    <br> 
+</p>
 
-* **GitHuB:** @Norberto-Boa
-* **LinkedIn:** Norberto Boa
+## 📝 Table of Contents
 
-### Contributing
+- [About](#about)
+- [Getting Started](#getting_started)
+- [Prerequisites](#prerequisites)
+- [Built with](#builtwith)
+- [Deployment](#deployment)
+- [Authors](#authors)
+- [Acknowledgments](#acknowledgement)
+- [Contributers](#contributers)
+- [License](#license)
 
-Feel free to get in touch with me, in order to propose some new features and correct any mistake
+## 🧐 About <a name = "about"></a>
+
+Basically, the user will post an ad with the of the game that he plays and wait till another gamer comes and connects with him, in order to have his ID and then play it together.
+
+## 🏁 Getting Started <a name = "getting_started"></a>
+
+You can clone this repository by using the following commands:
+
+#### GitHub CLI
+``` 
+gh repo clone Norberto-Boa/NLWeSports-Norberto 
+```
+
+#### Git clone
+```
+git clone https://github.com/Norberto-Boa/NLWeSports-Norberto.git
+```
+
+Then type 
+```
+cd NLWeSports.git
+```
+
+
+### Prerequisites <a name="prerequisites"></a>
+ [![My Skills](https://skills.thijs.gg/icons?i=nodejs,f&theme=light)](https://skills.thijs.gg)
+
+
+### Built with <a name="builtwith"></a>
+- [SQLite](https://sqlite.org/index.html/) - Database
+- [Express](https://expressjs.com/) - Server Framework
+- [React](https://react.dev/) - Front end
+- [React Native](https://reactnative.dev/) with [Expo](https://expo.dev/) - Mobile
+- [NodeJs](https://nodejs.org/en/) - Server Environment
+
+### Installing <a name="installing"></a>
+
+#### Server
+To install the server side you must write the following commands on the terminal:
+```
+cd server
+npm install 
+npm run dev
+```
+
+#### Front-end web
+To install and run the front-end you should do the following commands:
+
+```
+cd web
+npm install
+npm run dev
+```
+
+#### Mobile
+
+
+```
+cd mobile 
+npm install
+npm run start || expo start
+```
+Then follow the instructions written on the terminal. 
+
+You must run everything at the same time!
+
+
+## 🚀 Deployment <a name = "deployment"></a>
+[Live Demo]("#)
+
+
+## ✍️ Authors <a name = "authors"></a>
+
+- [@BoaN](https://github.com/Norberto-Boa) - Idea & Initial work
+
+See also the list of [contributors](https://github.com/Norberto-Boa/NLWeSports-Norberto/graphs/contributors) who participated in this project.
+
+## 🎉 Acknowledgements <a name = "acknowledgement"></a>
+
+The idea of this project started with the help of educators from Rocketseat.
+
+
+## 👌 Contributing <a name="contributers"></a>
+
+Feel free to contribute in order to improve the project and your skills as well.
+
+You can do it by accessing the [issues](https://github.com/Norberto-Boa/NLWeSports-Norberto/issues) page!
+
+Give a 🌟 if you liked this project.
+
+## 📄 License <a name="license"></a>
+
+This project is [MIT](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt) licensed.

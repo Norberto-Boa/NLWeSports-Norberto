@@ -2,6 +2,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Warning } from 'phosphor-react';
 import axios from 'axios';
 import { useState, FormEvent } from 'react';
+import { baseUrl } from "../utils/baseUrl";
 
 interface ErrorMessage{
   message: string
@@ -37,12 +38,10 @@ const Register = () => {
 
 
 
-  console.log(watch('username'))
-
   const win: Window = window;
   async function HandleSubmit(data : RegInputs) {
     try {
-      await axios.post('http://localhost:4444/register', {
+      await axios.post(`${baseUrl}/register`, {
         username: data?.username,
         name: data?.name,
         password: data?.password,
