@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=400px height=400px src="./mobile/src/assets/Logo-nlw-esports.png" alt="Project logo"></a>
+ <img width=300px  src="./mobile/src/assets/Logo-nlw-esports.png" alt="Project logo"></a>
 </p>
 
 <h3 align="center">eSports connecter</h3>
