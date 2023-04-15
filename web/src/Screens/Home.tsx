@@ -62,7 +62,7 @@ const Home = () => {
 
   
   function handleCarouselActivation(){ 
-    setLoaded(7)
+    setLoaded(6.5)
   }
 
   setTimeout(handleCarouselActivation, 2500)

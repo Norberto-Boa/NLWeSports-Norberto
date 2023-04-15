@@ -70,7 +70,7 @@ const Game = () => {
 
   const navigate = useNavigate();
 
-  setTimeout(() => setLoaded(7), 2500)
+  setTimeout(() => setLoaded(6.5), 2500)
 
   return (
     
