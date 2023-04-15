@@ -1,3 +1,5 @@
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
 import { useEffect, useState } from 'react';
 
 import * as Dialog from '@radix-ui/react-dialog';
@@ -13,6 +15,10 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import jwt from 'jwt-decode';
 import { baseUrl } from "../utils/baseUrl";
+import { CreateGameTrigger } from "../components/CreateGameTrigger";
+import { CreateGameModal } from "../components/CreateGameBanner";
+import { setInterval } from "timers/promises";
+
 
 interface GameProps {
   id: string,
@@ -34,7 +40,17 @@ interface tokenDecoded{
 const Home = () => {
   const [games, setGames] = useState<GameProps[]>([]);
   const token: string = Cookies.get('Token', ) ?? ""; 
-  const [decoded, setDecoded] = useState<tokenDecoded>();
+  const [decoded, setDecoded] = useState<tokenDecoded>()!;
+  
+  const [loaded, setLoaded] = useState(6);
+  const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
+    slides: {
+      perView: loaded,
+      spacing: 24,
+    },
+    drag: true,
+  });
+
 
   useEffect(() => {
     axios.get(`${baseUrl}/games`)
@@ -44,8 +60,14 @@ const Home = () => {
       });
   }, [])
 
-
   
+  function handleCarouselActivation(){ 
+    setLoaded(7)
+  }
+
+  setTimeout(handleCarouselActivation, 2500)
+
+
   const checkJWT = () => {
     const tokenTime = decoded?.exp === undefined ?  0 : decoded?.exp * 1000;
 
@@ -72,10 +94,17 @@ const Home = () => {
       </h1>
 
       <h1 className='text-6xl text-white font-black mt-20'>
-        Seu <span className='bg-gradient-to-r from-purple-500 via-blue-500 to-yellow-300 bg-clip-text text-transparent'>duo</span> está aqui
+        Seu <span className='bg-gradient-to-r from-violet-500 via-blue-500 to-yellow-300 bg-clip-text text-transparent'>duo</span> está aqui
       </h1>
 
-      <div className='grid grid-cols-6 gap-6 mt-16'>
+      {/* <button
+        className="mt-8 px-4 py-3 bg-violet-500 rounded-lg text-lg text-white font-semibold"
+        onClick={()=>{}}
+      >
+        Activate Carousel
+      </button> */}
+      
+      <div ref={sliderRef} className='keen-slider mt-16'>
         {games.map((item) => {
           return (
             <GameBanner
@@ -87,6 +116,19 @@ const Home = () => {
             />
           )
         })}
+        {
+          isLogged ?
+            <div className="keen-slider__slide rounded-lg overflow-hidden border-4 border-violet-500">
+              <Dialog.Root>
+                <CreateGameTrigger />
+                <CreateGameModal />
+              </Dialog.Root>
+            </div>
+            : 
+          <div />
+        }
+        
+
       </div>
 
       <Dialog.Root>

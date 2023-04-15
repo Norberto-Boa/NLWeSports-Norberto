@@ -57,6 +57,7 @@ export const CreateAdModal = () => {
       });
 
       alert('Anuncio criado')
+      window.location.reload();
 
     } catch (error) {
       console.log(error)
