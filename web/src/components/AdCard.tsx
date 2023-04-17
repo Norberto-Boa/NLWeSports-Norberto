@@ -18,7 +18,7 @@ const AdCard = (props: AdProps) => {
   console.log(props.weekDays)
 
   return (
-    <div className="keen-slider__slide h-30 bg-zinc-800 rounded-xl !w-72 flex flex-col py-5 px-4 mr-5">
+    <div className="keen-slider__slide h-30 bg-zinc-800 rounded-xl !w-72 flex flex-col py-5 px-4">
       <div className="py-2 ">
         <p className="text-slate-400 font-bold text-lg">Nome</p>
         <span className="text-zinc-100 font-bold text-lg">{props.name}</span>

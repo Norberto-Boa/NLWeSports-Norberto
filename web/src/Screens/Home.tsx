@@ -42,10 +42,54 @@ const Home = () => {
   const token: string = Cookies.get('Token', ) ?? ""; 
   const [decoded, setDecoded] = useState<tokenDecoded>()!;
   
-  const [loaded, setLoaded] = useState(6);
-  const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
+  const [loaded, setLoaded] = useState(5.5);
+  const [sliderRef] = useKeenSlider<HTMLDivElement>({
+    breakpoints: {
+      "(min-width: 500px)": {
+        slides: {
+          perView: 3.2,
+          spacing: 24
+        }
+      },
+      "(min-width:600px)": {
+        slides: {
+          perView: 3.5,
+          spacing: 24
+        }
+      },
+      "(min-width:700px)": {
+        slides: {
+          perView: 3.9,
+          spacing: 24
+        }
+      },
+      "(min-width:850px)": {
+        slides: {
+          perView: 4.4,
+          spacing: 24
+        }
+      },
+      "(min-width:920px)": {
+        slides: {
+          perView: 4.8,
+          spacing: 24
+        }
+      },
+      "(min-width:1020px)": {
+        slides: {
+          perView: 5.2,
+          spacing: 24
+        }
+      },
+      "(min-width:1100px)": {
+        slides: {
+          perView: loaded,
+          spacing: 24
+        }
+      },
+    },
     slides: {
-      perView: loaded,
+      perView: 2.4,
       spacing: 24,
     },
     drag: true,
@@ -89,11 +133,11 @@ const Home = () => {
     <div className='max-w-[1344px] mx-auto flex flex-col items-center my-20'>
       <img src={LogoImg} alt="" />
 
-      <h1 className='text-6xl text-white font-black mt-20'>
+      <h1 className='text-6xl text-white font-black mt-20 text-center mx-8'>
         {decoded?.name}
       </h1>
 
-      <h1 className='text-6xl text-white font-black mt-20'>
+      <h1 className='text-6xl text-white font-black mt-20 text-center mx-8'>
         Seu <span className='bg-gradient-to-r from-violet-500 via-blue-500 to-yellow-300 bg-clip-text text-transparent'>duo</span> está aqui
       </h1>
 
@@ -104,7 +148,7 @@ const Home = () => {
         Activate Carousel
       </button> */}
       
-      <div ref={sliderRef} className='keen-slider mt-16'>
+      <div ref={sliderRef} className='keen-slider mt-16 lg:max-w-5xl'>
         {games.map((item) => {
           return (
             <GameBanner

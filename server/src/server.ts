@@ -23,6 +23,9 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   })
 })
 
+const Port = process.env.PORT || 4444
 
 
-app.listen(process.env.PORT || 4444) 
+app.listen(Port, () => {
+  console.log(`listening on ${Port}`)
+}) 

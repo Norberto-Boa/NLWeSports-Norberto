@@ -30,17 +30,50 @@ interface Ad{
 
 
 const Game = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [loaded, setLoaded] = useState(2);
-  const [sliderRef, instanceRef] = useKeenSlider({
+  const [loaded, setLoaded] = useState(3.1);
+  const [sliderRef] = useKeenSlider({
     initial: 0,
+    breakpoints: {
+      "(min-width: 480px)": {
+        slides: {
+          perView: 1.2,
+          spacing: 24
+        },
+        loop: true
+      },
+      "(min-width: 640px)": {
+        slides: {
+          perView: 1.8,
+          spacing: 24
+        },
+        loop: true
+      },
+      "(min-width: 768px)": {
+        slides: {
+          perView: 2.2,
+          spacing: 24
+        },
+        loop: true
+      },
+      "(min-width: 900px)": {
+        slides: {
+          perView: 2.8,
+          spacing: 24
+        },
+        loop: true
+      },
+      "(min-width: 1024px)": {
+        slides: {
+          perView: loaded,
+          spacing: 24
+        },
+        loop: true
+      },
+    },
     slides: {
-      perView: loaded
+      perView: 1,
+      spacing: 24
     },
-    slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel)
-    },
-    loop: true,
   })
 
   const [game, setGame] = useState<GameProps>()
@@ -70,19 +103,19 @@ const Game = () => {
 
   const navigate = useNavigate();
 
-  setTimeout(() => setLoaded(6.5), 2500)
+  setTimeout(() => setLoaded(3.2), 2500)
 
   return (
     
 
-    <div className='max-w-[1344px] mx-auto flex flex-col items-center my-20'>
+    <div className='xl:max-w-[1344px] lg:max-w-5xl md:max-w-3xl sm:max-w-xl max-w-sm mx-auto flex flex-col items-center my-20'>
       <button
         className="absolute top-5 left-5 text-white transition-all hover:text-zinc-400"
         onClick={() => navigate(-1)}
       >
         <ArrowLeft size={44}/>
       </button>
-      <div className={`bg-[url('${game?.bannerUrl}')] w-full h-80 relative`}>
+      <div className={`bg-[url('${game?.bannerUrl}')] w-full h-80 relative mx-auto`}>
         <img src={'https://images.hdqwalls.com/wallpapers/kylian-mbappe-fifa-22-5k-sl.jpg'} className='w-full h-80 object-cover object-center rounded-3xl' />
         <div className='bg-[rgba(0,0,0,0.6)] w-full h-full absolute top-0 left-0 overflow-hidden rounded-3xl flex justify-center items-center'>
           <h1 className='text-6xl text-white font-black text-center'>
