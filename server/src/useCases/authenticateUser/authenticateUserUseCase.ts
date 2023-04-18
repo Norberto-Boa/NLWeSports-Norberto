@@ -21,6 +21,10 @@ class authenticateUserUseCase {
       throw new Error("Credetianls are wrong");
     }
 
+    if (!userAlreadyExists.isUserOn) {
+      throw new Error("The user is not active yet!");
+    }
+
     // Check password 
     const passwordMatch = await compare(password, userAlreadyExists.password);
     

@@ -33,10 +33,13 @@ model Ad {
 }
 
 model User {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   name     String
-  username String @unique
+  username String  @unique
   password String
+  isUserOn Boolean @default(false)
+  isAdmin  Boolean @default(false)
+  email    String
 
   @@map("user")
 }
