@@ -4,8 +4,7 @@ import { FormEvent, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { baseUrl } from "../../utils/baseUrl";
-
-import { useForm } from 'react-hook-form';
+import { Link } from "react-router-dom";
 
 
 const Form = () => {
@@ -73,11 +72,10 @@ const Form = () => {
         </div>
 
         <span >
-          Forgot your password! <span className="text-blue-800 font-bold underline">Recover it </span>
         </span>
  
         <div
-          className="w-[100%]"
+          className="w-[100%] mb-4"
         >
           <button
             className="bg-violet-500 w-[100%] px-5 py-3 mt-4 rounded-md flex gap-3 justify-center font-semibold hover:bg-violet-600 transition-all duration-700"
@@ -85,8 +83,10 @@ const Form = () => {
           >
             Login
           </button>
+          
         </div>
 
+        <p className="text-lg">You're not Registered yet? <Link to={`/register`} className="text-blue-800 font-bold underline">Register</Link></p> 
       </form>
     </div>
   )

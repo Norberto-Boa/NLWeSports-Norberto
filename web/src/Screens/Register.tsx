@@ -3,6 +3,7 @@ import { Warning } from 'phosphor-react';
 import axios from 'axios';
 import { useState } from 'react';
 import { baseUrl } from "../utils/baseUrl";
+import { Link } from "react-router-dom";
 
 interface ErrorMessage{
   message: string
@@ -12,8 +13,12 @@ interface RegInputs{
   name: string
   username: string
   password: string
+  email: string
 }
 
+interface ErrorFace{
+  message: string
+}
 
 
 const ErrorMessage = (props: ErrorMessage) => {
@@ -31,27 +36,40 @@ const ErrorMessage = (props: ErrorMessage) => {
 
 const Register = () => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<RegInputs>();
-  const [data, setData] = useState<RegInputs>()
   const onSubmit: SubmitHandler<RegInputs> = async data => {
     HandleSubmit(data)
   }
 
+  const [error, setError] = useState(null)
+  const errorDiv = error ? 
+    <div className="mt-4">
+      <p>
+        <Warning className="text-red-600" /> <span>{error}</span>
+      </p>
+    </div>
+    : ''
+
 
 
   const win: Window = window;
-  async function HandleSubmit(data : RegInputs) {
+  async function HandleSubmit(data: RegInputs) {
+    setError(null);
     try {
       await axios.post(`${baseUrl}/register`, {
         username: data?.username,
         name: data?.name,
         password: data?.password,
+        email: data?.email
       }).then(async (res) => {
 
         if (res.status != 200) {
           alert('Something went wrong!')
           return
         } else {
-          console.log(res)
+          if (res.data.status == 500) {
+            const err = JSON.parse(res.data.message) 
+            setError(err[0].message);
+          }
         }
       })
     } catch (error) {
@@ -106,7 +124,23 @@ const Register = () => {
         </div>
 
         <div className='w-[100%]'>
-          <label htmlFor="name" className="font-bold">Name</label>
+          <label htmlFor="email" className="font-bold">Email</label>
+        <input
+          type={'email'}
+            {...register("email", { required: true })}
+          className="bg-zinc-900 text-zinc-200 py-3 px-4 rounded text-sm placeholder:text-zinc-500 w-[100%]"
+          placeholder='Password'
+        />
+
+        {errors?.email?.type === "required" && 
+          <ErrorMessage
+            message='This field is required'
+          />
+        }
+        </div>
+
+        <div className='w-[100%]'>
+          <label htmlFor="pwd" className="font-bold">Password</label>
         <input
           type={'password'}
           {...register("password", {required: true, minLength: 8})}
@@ -127,12 +161,16 @@ const Register = () => {
         }
         </div>
   
+        
+        {errorDiv}
 
        <input
-            className="bg-violet-500 w-[100%] px-5 py-3 mt-2 rounded-md flex gap-3 justify-center font-semibold hover:bg-violet-600 transition-all duration-700"
+            className="bg-violet-500 w-[100%] px-5 py-3 mt-2 mb-4 rounded-md flex gap-3 justify-center font-semibold hover:bg-violet-600 transition-all duration-700"
             type="submit"
         />
-            
+        
+        <p className="text-lg text-center">Already registered! <Link className="text-blue-800 font-bold underline" to={`/`}>Log in </Link></p>
+        
       </form>
     </div>
     

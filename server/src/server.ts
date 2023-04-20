@@ -18,7 +18,7 @@ app.use(router);
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   return res.json({
-    status: "Errore",
+    status: 500,
     message: error.message
   })
 })
