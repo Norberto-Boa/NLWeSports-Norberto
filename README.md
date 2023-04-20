@@ -100,7 +100,7 @@ You must run everything at the same time!
 
 
 ## 🚀 Deployment <a name = "deployment"></a>
-[Live Demo]("https://google.com")
+[Live Demo](https://nl-we-sports-norberto.vercel.app/)
 
 
 ## ✍️ Authors <a name = "authors"></a>
